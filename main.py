@@ -42,7 +42,7 @@ root.title('IyEditor')
 def welcome():
     try:
         wksFlatBar.add('Welcome')
-        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar)
+        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file)
     except:
         wksFlatBar.set('Welcome')
 
@@ -53,6 +53,7 @@ def new_file():
     try:
         wksFlatBar.add(name_of_file)
         text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size)
+        wksFlatBar.set(name_of_file)
     except:
         while True:
             try:
@@ -60,9 +61,11 @@ def new_file():
                 name_of_file = f"Untitled-{nb}"
                 wksFlatBar.add(name_of_file)
                 text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size)
+                wksFlatBar.set(name_of_file)
                 break
             except:
                 continue
+                
 
 
 #! //----------\\Editor Settings//----------\\
@@ -147,7 +150,7 @@ wksFlatBar.add('Welcome')
 
 
 #* Welcome page
-welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar)
+welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file)
 
 # text editor page
 """#! test !#
