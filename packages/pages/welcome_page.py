@@ -3,7 +3,7 @@ from customtkinter import CTkLabel, CTkButton
 from tkinter import Button
 
 # welcome page func
-def welcome_page_func(Frame, bar_name, new_file_cmd):
+def welcome_page_func(Frame, bar_name, new_file_cmd, open_file_cmd):
     """ this function to add the welcome page of IyEditor """
 
     # Remove tab func
@@ -21,7 +21,7 @@ def welcome_page_func(Frame, bar_name, new_file_cmd):
     # Buttons newFile and openFile
     btn_new_file = CTkButton(Frame, text='New File', width=50, height=35, command=new_file_cmd)
     btn_new_file.place(x=220, y=160)
-    btn_open_file = CTkButton(Frame, text='Open File', width=50, height=35)
+    btn_open_file = CTkButton(Frame, text='Open File', width=50, height=35, command=open_file_cmd)
     btn_open_file.place(x=220, y=200)
 
     # logo

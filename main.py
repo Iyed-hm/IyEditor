@@ -1,7 +1,7 @@
 #! //----------\\Modules//----------\\
 
 
-from customtkinter import set_appearance_mode, set_default_color_theme, CTk, CTkFrame, CTkTabview, CTkButton, CTkLabel
+from customtkinter import set_appearance_mode, set_default_color_theme, CTk, CTkFrame, CTkTabview, CTkButton, CTkLabel, filedialog
 from tkinter import Menu, PhotoImage
 from packages.pages.welcome_page import *
 from packages.pages.text_editor import *
@@ -42,7 +42,7 @@ root.title('IyEditor')
 def welcome():
     try:
         wksFlatBar.add('Welcome')
-        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file)
+        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file, open_file_cmd=open_file)
     except:
         wksFlatBar.set('Welcome')
 
@@ -65,7 +65,36 @@ def new_file():
                 break
             except:
                 continue
-                
+
+
+def open_file():
+    # type of file to show
+    fileType = (('All files', '*.*'), ('Text files', '*.txt'), ('Python files', '*.py'))
+    try:
+        fileName_in_list = filedialog.askopenfilenames(filetypes=fileType)
+        with open(fileName_in_list[0], 'r') as file:
+            content = file.read()
+
+    except:
+        pass
+
+    rev_path = fileName_in_list[0][::-1]
+    rev_file_name = ''
+
+    for i in rev_path:
+        if i == '/':
+            break
+        else:
+            rev_file_name += i
+            continue
+
+    name_of_file = rev_file_name[::-1]
+    try:
+        wksFlatBar.add(name_of_file)
+        text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size, text_box_content=content)
+        wksFlatBar.set(name_of_file)
+    except:
+        print("the error of creating file")
 
 
 #! //----------\\Editor Settings//----------\\
@@ -95,7 +124,7 @@ help = Menu(flatBar, tearoff=False)
 img_new_file = PhotoImage(file="img/File/new_file.png")
 file.add_command(label=' New File', image=img_new_file, compound='left', command=new_file)
 img_open_file = PhotoImage(file="img/File/open_file.png")
-file.add_command(label=' Open File', image=img_open_file, compound='left')
+file.add_command(label=' Open File', image=img_open_file, compound='left', command=open_file)
 file.add_separator()
 img_save = PhotoImage(file="img/File/save.png")
 file.add_command(label=' Save', image=img_save, compound='left')
@@ -146,16 +175,10 @@ wks.place(x=0, y=0)
 #* wksFlatBar
 wksFlatBar = CTkTabview(wks, height=screen_height, width=screen_width)
 wksFlatBar.pack()
-wksFlatBar.add('Welcome')
 
 
 #* Welcome page
-welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file)
-
-# text editor page
-"""#! test !#
-wksFlatBar.add('test')
-text_editor_page_func(wksFlatBar.tab('test'), wksFlatBar, 'test', text_size=editor_text_size)"""
+welcome()
 
 
 
