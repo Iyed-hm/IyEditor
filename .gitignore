@@ -1,3 +1,6 @@
+# Testing files
 test/
-__pycache__
 file4test.txt
+
+# Python cache
+__pycache__
