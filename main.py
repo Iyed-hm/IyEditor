@@ -47,26 +47,23 @@ def welcome():
         wksFlatBar.set('Welcome')
 
 
+#* New file function
 def new_file():
-    nb = 1
+    # Create the file
+    global nb
     name_of_file = f"Untitled-{nb}"
-    try:
-        wksFlatBar.add(name_of_file)
-        text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size)
-        wksFlatBar.set(name_of_file)
-    except:
-        while True:
-            try:
-                nb += 1
-                name_of_file = f"Untitled-{nb}"
-                wksFlatBar.add(name_of_file)
-                text_editor_page_func(bar_name=wksFlatBar.tab(name_of_file), Frame=wksFlatBar, name_of_tab=name_of_file, text_size=editor_text_size, )
-                wksFlatBar.set(name_of_file)
-                break
-            except:
-                continue
+    wksFlatBar.add(name_of_file)
+    text_editor_page_func(Frame=wksFlatBar.tab(name_of_file), bar_name=wksFlatBar, name_of_tab=name_of_file, text_size=editor_text_size, dict_of_path=file_path)
+    wksFlatBar.set(name_of_file)
+    # path
+    path = 'NoPath'
+    nb += 1
+
+    # Add file path to the dict
+    file_path[name_of_file] = path
 
 
+#* Open file function
 def open_file():
     # type of file to show
     fileType = (('All files', '*.*'), ('Text files', '*.txt'), ('Python files', '*.py'))
@@ -91,16 +88,42 @@ def open_file():
     name_of_file = rev_file_name[::-1]
     try:
         wksFlatBar.add(name_of_file)
-        text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size, text_box_content=content)
+        global file_path
+        text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size, text_box_content=content, dict_of_path=file_path)
         wksFlatBar.set(name_of_file)
     except:
         print("the error of creating file")
+    
+    # Add file path to the dict
+    file_path[name_of_file] = fileName_in_list[0]
+
+
+#* Close func
+def quit():
+    global root
+    root.quit()
+
+
+#* Test function
+def test():
+    pass
+
+
+
+#! //----------\\General Variables//----------\\
+
+
+#* N of new file
+nb = 1
+#* Dict to manage the path of files 
+file_path = {}
+
 
 
 #! //----------\\Editor Settings//----------\\
 
 
-# text size
+#* Text size
 editor_text_size = 18
 
 
@@ -132,7 +155,7 @@ img_save_as = PhotoImage(file="img/File/save_as.png")
 file.add_command(label=' Save As', image=img_save_as, compound='left')
 file.add_separator()
 img_exit = PhotoImage(file="img/File/exit.png")
-file.add_command(label=' Exit', command=root.quit, image=img_exit, compound='left')
+file.add_command(label=' Exit', command=quit, image=img_exit, compound='left')
 
 #* Centent of edit
 img_cut = PhotoImage(file="img/Edit/cut.png")
@@ -154,6 +177,8 @@ help.add_command(label=' Settings', image=img_settings, compound='left')
 help.add_separator()
 img_about = PhotoImage(file="img/Help/about.png")
 help.add_command(label=' About', image=img_about, compound='left')
+help.add_command(label=' Test', command=test)
+
 
 #* Set buttons
 flatBar.add_cascade(label='File', menu=file)

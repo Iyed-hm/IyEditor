@@ -2,12 +2,14 @@ from customtkinter import CTkTextbox, CTkScrollbar
 from tkinter import Button
 
 
-def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, text_box_content=''):
+def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path, text_box_content=''):
     """ this function of text editor """
 
     # Remove tab func
     def rm_tab():
         bar_name.delete(name_of_tab)
+        del dict_of_path[name_of_tab]
+
 
 
     # Remove button
@@ -22,4 +24,3 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, text_box_cont
         pass
     else:
         text_area.insert('0.0', text_box_content)
-
