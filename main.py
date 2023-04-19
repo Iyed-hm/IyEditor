@@ -60,7 +60,7 @@ def new_file():
                 nb += 1
                 name_of_file = f"Untitled-{nb}"
                 wksFlatBar.add(name_of_file)
-                text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size)
+                text_editor_page_func(bar_name=wksFlatBar.tab(name_of_file), Frame=wksFlatBar, name_of_tab=name_of_file, text_size=editor_text_size, )
                 wksFlatBar.set(name_of_file)
                 break
             except:

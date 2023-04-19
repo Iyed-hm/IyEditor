@@ -2,7 +2,7 @@ from customtkinter import CTkTextbox, CTkScrollbar
 from tkinter import Button
 
 
-def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, text_box_content):
+def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, text_box_content=''):
     """ this function of text editor """
 
     # Remove tab func
