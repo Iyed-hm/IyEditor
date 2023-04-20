@@ -38,14 +38,7 @@ root.title('IyEditor')
 #! //----------\\Functions//----------\\
 
 
-#* Help functions
-def welcome():
-    try:
-        wksFlatBar.add('Welcome')
-        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file, open_file_cmd=open_file)
-    except:
-        wksFlatBar.set('Welcome')
-
+# File functions
 
 #* New file function
 def new_file():
@@ -98,10 +91,63 @@ def open_file():
     file_path[name_of_file] = fileName_in_list[0]
 
 
+#* Save func
+def save():
+    pass
+
+
+#* Save as func
+def save_as():
+    pass 
+
+
 #* Close func
 def quit():
     global root
     root.quit()
+
+
+# edit functions
+
+#* cut func
+def cut():
+    pass
+
+
+#* copy func
+def copy():
+    pass
+
+
+#* past func
+def past():
+    pass
+
+
+#* select all
+def select_all():
+    pass
+
+
+# help functions
+
+#* welcome page func
+def welcome():
+    try:
+        wksFlatBar.add('Welcome')
+        welcome_page_func(wksFlatBar.tab('Welcome'), wksFlatBar, new_file_cmd=new_file, open_file_cmd=open_file)
+    except:
+        wksFlatBar.set('Welcome')
+
+
+#* settings func
+def setting():
+    pass
+
+
+#* about func
+def about():
+    pass
 
 
 #* Test function
@@ -150,23 +196,23 @@ img_open_file = PhotoImage(file="img/File/open_file.png")
 file.add_command(label=' Open File', image=img_open_file, compound='left', command=open_file)
 file.add_separator()
 img_save = PhotoImage(file="img/File/save.png")
-file.add_command(label=' Save', image=img_save, compound='left')
+file.add_command(label=' Save', image=img_save, compound='left', command=save)
 img_save_as = PhotoImage(file="img/File/save_as.png")
-file.add_command(label=' Save As', image=img_save_as, compound='left')
+file.add_command(label=' Save As', image=img_save_as, compound='left', command=save_as)
 file.add_separator()
 img_exit = PhotoImage(file="img/File/exit.png")
-file.add_command(label=' Exit', command=quit, image=img_exit, compound='left')
+file.add_command(label=' Exit', image=img_exit, compound='left', command=quit)
 
 #* Centent of edit
 img_cut = PhotoImage(file="img/Edit/cut.png")
-edit.add_command(label=' Cut', image=img_cut, compound='left')
+edit.add_command(label=' Cut', image=img_cut, compound='left', command=cut)
 img_copy = PhotoImage(file="img/Edit/copy.png")
-edit.add_command(label=' Copy', image=img_copy, compound='left')
+edit.add_command(label=' Copy', image=img_copy, compound='left', command=copy)
 img_past = PhotoImage(file="img/Edit/paste.png")
-edit.add_command(label=' Paste', image=img_past, compound='left')
+edit.add_command(label=' Paste', image=img_past, compound='left', command=past)
 edit.add_separator()
 img_select_all = PhotoImage(file="img/Edit/select_all.png")
-edit.add_command(label=' Select All', image=img_select_all, compound='left')
+edit.add_command(label=' Select All', image=img_select_all, compound='left', command=select_all)
 
 #* Centent of help
 img_welcome = PhotoImage(file="img/Help/welcome.png")

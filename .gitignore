@@ -4,3 +4,7 @@ file4test.txt
 
 # Python cache
 __pycache__
+*.dat
+
+# IntelliJ settings
+.idea/
