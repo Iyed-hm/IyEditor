@@ -254,4 +254,5 @@ welcome()
 
 
 #! //-------------\\ End //-------------\\
+root.protocol("WM_DELETE_WINDOW", quit)
 root.mainloop()

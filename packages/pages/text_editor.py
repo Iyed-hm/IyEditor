@@ -1,5 +1,6 @@
 from customtkinter import CTkTextbox, CTkScrollbar
 from tkinter import Button
+from pickle import dump, load
 
 #! editor page
 def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path, text_box_content=''):
@@ -7,8 +8,20 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
 
     # Remove tab func
     def rm_tab():
-        bar_name.delete(name_of_tab)
+        # Delete the path of page from pict_of_path
         del dict_of_path[name_of_tab]
+        # Delete the  page from dict of pages area
+        # Get the dict of pages area
+        with open('.IyEditor_cache_/IyEditor.dat', 'rb') as dat_file_r:
+            dict_of_pages_area = load(dat_file_r)
+        # deleting and dumping the dict to the dat file
+        with open('.IyEditor_cache_/IyEditor.dat', 'wb') as dat_file_w:
+            # delete
+            del dict_of_pages_area[name_of_tab]
+            # dump
+            dump(dict_of_pages_area, dat_file_w)
+        # Delete the page
+        bar_name.delete(name_of_tab)
 
 
 
@@ -29,23 +42,26 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
     else:
         text_area.insert('0.0', text_box_content)
 
-    #* Save the content in dict 
-    
-    # dict of content
-    text_area_content = {}
-    # save the content of file in the dict
-    text_area_content[name_of_tab] = text_box_content
 
     def update_text_dict(event):
+        # Get the Content of text area
         new_text = text_area.get('0.0', 'end')
-        #text_area_content.update({name_of_tab : new_text})
-        text_area_content[name_of_tab] = new_text
-        #* printing dict for testing
-        print(text_area_content)
+        # Get the dict of pages area
+        with open('.IyEditor_cache_/IyEditor.dat', 'rb') as dat_file_r:
+            dict_of_pages_area = load(dat_file_r)
+        # update and dumping the dict to the dat file
+        with open('.IyEditor_cache_/IyEditor.dat', 'wb') as dat_file_w:
+            # update
+            dict_of_pages_area[name_of_tab] = new_text
+            # dump
+            dump(dict_of_pages_area, dat_file_w)
 
 
-        # Getting the dat file and update it
-        #!#################
+
+        # test func
+        """with open('../../', 'rb') as bin_files:
+            content = load(bin_files)
+            print(content)"""
 
 
     text_area.bind("<KeyRelease>", update_text_dict)
