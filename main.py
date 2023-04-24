@@ -61,7 +61,7 @@ def open_file():
     # type of file to show
     fileType = (('All files', '*.*'), ('Text files', '*.txt'), ('Python files', '*.py'))
     try:
-        fileName_in_list = filedialog.askopenfilenames(filetypes=fileType)
+        fileName_in_list = filedialog.askopenfilenames(filetypes=fileType, title='Select file',initialdir=(r'/home/iyed/Desktop'))
         with open(fileName_in_list[0], 'r') as file:
             content = file.read()
 
@@ -98,7 +98,14 @@ def save():
 
 #* Save as func
 def save_as():
-    pass 
+    try:
+        selected_file = wksFlatBar.get()
+        if selected_file == 'Welcome':
+            print('error!')
+    except:
+        print(selected_file)
+        file_path_save_as = filedialog.asksaveasfilename(title='Select dir to save', initialfile=selected_file,initialdir=(r'/home/iyed/Desktop'))
+        print(file_path_save_as)
 
 
 #* Close func
