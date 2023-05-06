@@ -36,11 +36,6 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
 
     text_area.place(x=5, y=40)
 
-    # Content of text box
-    if text_box_content =='':
-        pass
-    else:
-        text_area.insert('0.0', text_box_content)
 
 
     def update_text_dict(event):
@@ -50,12 +45,19 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
         with open('.IyEditor_cache_/IyEditor.dat', 'rb') as dat_file_r:
             dict_of_pages_area = load(dat_file_r)
         # update and dumping the dict to the dat file
-        with open('.IyEditor_cache_/IyEditor.dat', 'wb') as dat_file_w:
+        with open(r'.IyEditor_cache_/IyEditor.dat', 'wb') as dat_file_w:
             # update
             dict_of_pages_area[name_of_tab] = new_text
             # dump
             dump(dict_of_pages_area, dat_file_w)
 
+
+    # Content of text box
+    if text_box_content =='':
+        pass
+    else:
+        text_area.insert('0.0', text_box_content)
+        update_text_dict()
 
 
         # test func

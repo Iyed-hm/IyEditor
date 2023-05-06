@@ -64,31 +64,29 @@ def open_file():
         fileName_in_list = filedialog.askopenfilenames(filetypes=fileType, title='Select file',initialdir=(r'/home/iyed/Desktop'))
         with open(fileName_in_list[0], 'r') as file:
             content = file.read()
+        rev_path = fileName_in_list[0][::-1]
+        rev_file_name = ''
 
-    except:
-        pass
 
-    rev_path = fileName_in_list[0][::-1]
-    rev_file_name = ''
+        for i in rev_path:
+            if i == '/':
+                break
+            else:
+                rev_file_name += i
+                continue
 
-    for i in rev_path:
-        if i == '/':
-            break
-        else:
-            rev_file_name += i
-            continue
+        name_of_file = rev_file_name[::-1]
 
-    name_of_file = rev_file_name[::-1]
-    try:
         wksFlatBar.add(name_of_file)
         global file_path
         text_editor_page_func(wksFlatBar.tab(name_of_file), wksFlatBar, name_of_file, text_size=editor_text_size, text_box_content=content, dict_of_path=file_path)
         wksFlatBar.set(name_of_file)
+
+        # Add file path to the dict
+        file_path[name_of_file] = fileName_in_list[0]
+
     except:
-        print("the error of creating file")
-    
-    # Add file path to the dict
-    file_path[name_of_file] = fileName_in_list[0]
+        pass
 
 
 #* Save func
@@ -98,14 +96,33 @@ def save():
 
 #* Save as func
 def save_as():
-    try:
         selected_file = wksFlatBar.get()
+    # try:
         if selected_file == 'Welcome':
-            print('error!')
-    except:
-        print(selected_file)
-        file_path_save_as = filedialog.asksaveasfilename(title='Select dir to save', initialfile=selected_file,initialdir=(r'/home/iyed/Desktop'))
-        print(file_path_save_as)
+            print("Error!")
+        else:
+            # print(selected_file)
+            file_path_save_as = filedialog.asksaveasfilename(title='Select dir to save as', initialfile=selected_file, initialdir=(r'/home/iyed/Desktop'))
+            # print(file_path_save_as)
+            #* Get The Content Of Selected file
+            # All File Content Dict
+            with open('.IyEditor_cache_/IyEditor.dat', 'rb') as dat_file:
+                content_all_files = load(dat_file)
+            
+            # File content
+            file_content = ""
+
+            # check the content of file
+            for file_name, content in content_all_files.items():
+                if file_name == selected_file:
+                    file_content = content
+                    break
+                else:
+                    continue
+            # Test
+            # print(file_content)
+
+            # Save...
 
 
 #* Close func
