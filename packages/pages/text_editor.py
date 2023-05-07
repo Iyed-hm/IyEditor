@@ -38,7 +38,7 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
 
 
 
-    def update_text_dict(event):
+    def update_text_dict(event=None):
         # Get the Content of text area
         new_text = text_area.get('0.0', 'end')
         # Get the dict of pages area
@@ -50,6 +50,8 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
             dict_of_pages_area[name_of_tab] = new_text
             # dump
             dump(dict_of_pages_area, dat_file_w)
+        # test
+        # print(dict_of_path)
 
 
     # Content of text box
@@ -61,9 +63,9 @@ def text_editor_page_func(Frame, bar_name, name_of_tab, text_size, dict_of_path,
 
 
         # test func
-        """with open('../../', 'rb') as bin_files:
-            content = load(bin_files)
-            print(content)"""
+        # """with open('../../', 'rb') as bin_files:
+        #     content = load(bin_files)
+        #     print(content)"""
 
 
     text_area.bind("<KeyRelease>", update_text_dict)

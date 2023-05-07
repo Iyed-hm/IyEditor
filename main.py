@@ -1,3 +1,4 @@
+
 #! //----------\\Modules//----------\\
 
 
@@ -59,8 +60,8 @@ def new_file():
 #* Open file function
 def open_file():
     # type of file to show
-    fileType = (('All files', '*.*'), ('Text files', '*.txt'), ('Python files', '*.py'))
-    try:
+        fileType = (('All files', '*.*'), ('Text files', '*.txt'), ('Python files', '*.py'))
+    # try:
         fileName_in_list = filedialog.askopenfilenames(filetypes=fileType, title='Select file',initialdir=(r'/home/iyed/Desktop'))
         with open(fileName_in_list[0], 'r') as file:
             content = file.read()
@@ -83,10 +84,12 @@ def open_file():
         wksFlatBar.set(name_of_file)
 
         # Add file path to the dict
+        # test
+        # print(fileName_in_list)
         file_path[name_of_file] = fileName_in_list[0]
 
-    except:
-        pass
+    # except:
+        # pass
 
 
 #* Save func
@@ -121,8 +124,13 @@ def save_as():
                     continue
             # Test
             # print(file_content)
-
-            # Save...
+            # Save The Content Into Selected Path
+            with open(file_path_save_as, 'w') as save_cont:
+                save_cont.write(file_content)
+            # Add The Selected Path To Path Dict
+            file_path[selected_file] = file_path_save_as
+    # except:
+        # pass
 
 
 #* Close func
